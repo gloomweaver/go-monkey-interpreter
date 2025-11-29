@@ -230,12 +230,7 @@ func (p *Parser) parseIntegerLiteral() ast.Expression {
 }
 
 func (p *Parser) parseBooleanLiteral() ast.Expression {
-	lit := &ast.BooleanLiteral{Token: p.curToken}
-	if lit.Token.Type == token.TRUE {
-		lit.Value = true
-	} else {
-		lit.Value = false
-	}
+	lit := &ast.BooleanLiteral{Token: p.curToken, Value: p.curTokenIs(token.TRUE)}
 	return lit
 }
 
