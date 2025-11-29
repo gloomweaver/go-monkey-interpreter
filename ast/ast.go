@@ -124,6 +124,20 @@ func (es *ExpressionStatement) String() string {
 	return ""
 }
 
+// BOOLEAN LITERAL
+type BooleanLiteral struct {
+	Token token.Token
+	Value bool
+}
+
+func (b *BooleanLiteral) expressionNode() {}
+func (b *BooleanLiteral) TokenLiteral() string {
+	return b.Token.Literal
+}
+func (b *BooleanLiteral) String() string {
+	return b.Token.Literal
+}
+
 // INTEGER LITERAL
 type IntegerLiteral struct {
 	Token token.Token
