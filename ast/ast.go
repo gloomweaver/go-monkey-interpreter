@@ -20,6 +20,7 @@ type Expression interface {
 	expressionNode()
 }
 
+// PROGRAM
 type Program struct {
 	Statements []Statement
 }
@@ -40,6 +41,7 @@ func (p *Program) String() string {
 	return out.String()
 }
 
+// IDENTIFIER
 type Identifier struct {
 	Token token.Token
 	Value string
@@ -53,6 +55,7 @@ func (i *Identifier) String() string {
 	return i.Value
 }
 
+// LET STATEMENT
 type LetStatement struct {
 	Token token.Token
 	Name  *Identifier
@@ -79,6 +82,7 @@ func (ls *LetStatement) String() string {
 	return out.String()
 }
 
+// RETURN STATEMENT
 type ReturnStatement struct {
 	Token       token.Token
 	ReturnValue Expression
@@ -102,6 +106,7 @@ func (rs *ReturnStatement) String() string {
 	return out.String()
 }
 
+// EXPRESSION STATEMENT
 type ExpressionStatement struct {
 	Token      token.Token
 	Expression Expression
@@ -119,6 +124,7 @@ func (es *ExpressionStatement) String() string {
 	return ""
 }
 
+// INTEGER LITERAL
 type IntegerLiteral struct {
 	Token token.Token
 	Value int64
@@ -130,4 +136,26 @@ func (il *IntegerLiteral) TokenLiteral() string {
 }
 func (il *IntegerLiteral) String() string {
 	return il.Token.Literal
+}
+
+// PREFIX EXPRESSION
+type PrefixExpression struct {
+	Token    token.Token
+	Operator string
+	Right    Expression
+}
+
+func (pe *PrefixExpression) expressionNode() {}
+func (pe *PrefixExpression) TokenLiteral() string {
+	return pe.Token.Literal
+}
+func (pe *PrefixExpression) String() string {
+	var out bytes.Buffer
+
+	out.WriteString("(")
+	out.WriteString(pe.Operator)
+	out.WriteString(pe.Right.String())
+	out.WriteString(")")
+
+	return out.String()
 }
